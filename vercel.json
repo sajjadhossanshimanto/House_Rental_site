@@ -1,16 +1,17 @@
 {
   "version": 2,
-  "builds": [
-    {
+  "builds": [{
       "src": "house_rental/wsgi.py",
       "use": "@vercel/python",
-      "config": { "runtime": "python3.12" }
-    }
-  ],
+      "config": {
+        "runtime": "python3.12" ,
+        "buildCommand": "python manage.py collectstatic --clear --noinput"
+      }
+  }],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "dest": "house_rental/wsgi.py"
     },
     {
       "src": "/(.*)",
