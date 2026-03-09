@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "library_api/wsgi.py",
+      "src": "house_rental/wsgi.py",
       "use": "@vercel/python",
       "config": { "runtime": "python3.12" }
     }
@@ -14,7 +14,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "library_api/wsgi.py"
+      "dest": "house_rental/wsgi.py"
     }
   ]
 }
