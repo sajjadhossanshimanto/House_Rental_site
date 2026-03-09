@@ -1,5 +1,7 @@
 from django.db import models
 from accounts.models import CustomUser
+from cloudinary.models import CloudinaryField
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 
 class Advertisement(models.Model):
@@ -17,7 +19,7 @@ class Advertisement(models.Model):
         ('three_bedroom', '3 Bedroom'),
         ('four_plus', '4+ Bedroom'),
     ]
-    
+
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='advertisements')
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -29,7 +31,7 @@ class Advertisement(models.Model):
     area_sqft = models.PositiveIntegerField()
     amenities = models.TextField(help_text="Comma-separated list of amenities")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    featured_image = models.ImageField(upload_to='advertisements/')
+    featured_image = models.ImageField(upload_to='advertisements/', storage=MediaCloudinaryStorage(), null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     views_count = models.PositiveIntegerField(default=0)
@@ -46,7 +48,7 @@ class Advertisement(models.Model):
 
 class AdvertisementImage(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='advertisement_images/')
+    image = models.ImageField(upload_to='advertisement_images/', storage=MediaCloudinaryStorage(), null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
