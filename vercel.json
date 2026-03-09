@@ -1,21 +1,20 @@
 {
-    "builds": [{
+  "version": 2,
+  "builds": [
+    {
       "src": "library_api/wsgi.py",
       "use": "@vercel/python",
-      "config": { 
-        "maxLambdaSize": "15mb", 
-        "runtime": "python3.12",
-        "buildCommand": "python manage.py collectstatic --clear --noinput"
-      }
-    }],
-    "routes": [
-      {
-        "src": "/static/(.*)",
-        "dest": "library_api/wsgi.py"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "library_api/wsgi.py"
-      }
-    ]
+      "config": { "runtime": "python3.12" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "library_api/wsgi.py"
+    }
+  ]
 }
